@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'open-uri'
+require 'cgi'
 require 'kramdown'
 require 'rexml/document'
 
@@ -20,7 +21,7 @@ end
 
 def crop_image(url, size)
   image_crop = URI(IMAGE_CROPPER)
-  hash = { url: CGI.escape(url.split("://").last), h: size, w: size, t: 'square', a: 't' }
+  hash = { url: ::CGI.escape(url.split("://").last), h: size, w: size, t: 'square', a: 't' }
   image_crop.query = hash.to_a.map{|pair| pair.join('=') }.join('&')
   logger.info "Cropping image #{hash.inspect}"
   image_crop.normalize.read
