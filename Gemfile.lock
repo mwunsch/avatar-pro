@@ -2,6 +2,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     kramdown (1.0.2)
+    newrelic_rpm (3.6.2.96)
     puma (2.0.1)
       rack (>= 1.1, < 2.0)
     rack (1.5.2)
@@ -18,5 +19,6 @@ PLATFORMS
 
 DEPENDENCIES
   kramdown
+  newrelic_rpm
   puma
   sinatra
