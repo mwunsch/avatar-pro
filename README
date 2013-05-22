@@ -1,10 +1,26 @@
+# Serious Business Random Avatar Generator
+
 Very important business demands very important avatars.
 
-Uses:
+To request an avatar hit the endpoint `/avatar`.
 
-* http://realbusinessmen.tumblr.com/
-* http://www.tumblr.com/docs/en/api/v1
-* http://images.weserv.nl/
+Optionally add a `size`, or `s`, parameter with a single pixel dimension (since the avatar is square). The default is 80.
 
-Copyright (c) 2013 Mark Wunsch.
+    /avatar?s=500
+
+That will get you a largish sized avatar, for your business.
+
+This works well with [Gravatar](http://en.gravatar.com/), as a default avatar. 
+
+What would you use these business avatars for? Well if you need to conduct yourself professionally on the Internet for instance. Or if you need some default avatars when developing a web-app with seed data for instance. The possibilities are nearly endless.
+
+Thanks to:
+
+* [http://realbusinessmen.tumblr.com](http://realbusinessmen.tumblr.com/) is where the images come from.
+* [http://www.tumblr.com/docs/en/api/v1](http://www.tumblr.com/docs/en/api/v1) is what I use to request a random image.
+* [http://images.weserv.nl/](http://images.weserv.nl/) is what I use to crop the image to a square.
+* [http://www.sinatrarb.com/](http://www.sinatrarb.com/) is what glues everything together.
+* [https://www.heroku.com/](https://www.heroku.com/) is responsible for transporting bits from place to place.
+
+[Mark Wunsch](http://markwunsch.com/) is responsible for this. Please use it responsibly.
 
