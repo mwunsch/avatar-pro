@@ -7,6 +7,10 @@ require 'rexml/document'
 TUMBLR_HOST = "http://realbusinessmen.tumblr.com"
 IMAGE_CROPPER = "http://images.weserv.nl/"
 
+configure :production do
+  require 'newrelic_rpm'
+end
+
 get '/' do
   markdown File.read(File.join(settings.root, 'README'))
 end
@@ -28,23 +32,27 @@ def crop_image(url, size)
 end
 
 def find_nearest_size(size_as_int)
-  tumblr_photo_urls_by_size.reverse_each.find {|k,v| size_as_int <= k.to_i }.last
+  random_tumblr_post_element.reverse_each.find {|k,v| size_as_int <= k.to_i }.last
 end
 
 def tumblr_photo_urls_by_size
-  Hash[
-    random_tumblr_post_element.map {|p| [p.attribute('max-width').value, p.text]}
-  ]
+  tumblr_elements_to_hash random_tumblr_post_element
 end
 
 def random_tumblr_post_element
-  tumblr_fetch.to_a.sample
+  tumblr_elements_to_hash(*tumblr_fetch.to_a).sample
+end
+
+def tumblr_elements_to_hash(*tumblr_posts)
+  tumblr_posts.map {|post| Hash[ post.map {|p| [p.attribute('max-width').value, p.text] if p.has_attributes? }.compact ] }
 end
 
 def tumblr_fetch
   response = tumblr_url.open
   REXML::Document.new(response).elements["tumblr/posts"]
 end
+
+private
 
 def tumblr_url
   return @url unless @url.nil?
