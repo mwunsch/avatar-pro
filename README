@@ -2,7 +2,7 @@
 
 Very important business demands very important avatars.
 
-To request an avatar hit the endpoint `/avatar`.
+To request an avatar hit the endpoint [`/avatar`](/avatar).
 
 Optionally add a `size`, or `s`, parameter with a single pixel dimension (since the avatar is square). The default is 80.
 
