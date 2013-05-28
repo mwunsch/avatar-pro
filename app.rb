@@ -23,7 +23,7 @@ before do
 end
 
 get '/' do
-  markdown File.read(File.join(settings.root, 'README'))
+  markdown File.read(File.join(settings.root, 'README.md'))
 end
 
 get '/avatar' do
