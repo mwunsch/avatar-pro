@@ -43,6 +43,14 @@ get '/avatar/:hash' do
   response
 end
 
+get '/favicon.ico' do
+  response = crop_image nearest_size_from_hash(@size.to_i, tumblr_fetch.first), @size
+
+  status response.status.first
+  content_type response.content_type
+  response
+end
+
 get '/refresh' do
   size_before_refresh = settings.posts.size
   refresh
