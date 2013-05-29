@@ -51,6 +51,14 @@ get '/favicon.ico' do
   response
 end
 
+get '/apple-touch-icon.png' do
+  response = crop_image nearest_size_from_hash(144, tumblr_fetch.first), 144
+
+  status response.status.first
+  content_type response.content_type
+  response
+end
+
 get '/refresh' do
   size_before_refresh = settings.posts.size
   refresh
