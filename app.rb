@@ -26,17 +26,23 @@ get '/' do
   markdown File.read(File.join(settings.root, 'README.md'))
 end
 
-get '/avatar' do
+get '/avatar.?:format?' do
   response = crop_image(find_nearest_size(@size.to_i), @size)
+  if params[:format]
+    halt 403, "I don't understand that format" unless Rack::Mime.match? response.content_type, Rack::Mime.mime_type(params[:format].prepend("."))
+  end
 
   status response.status.first
   content_type response.content_type
   response
 end
 
-get '/avatar/:hash' do
+get '/avatar/:hash.?:format?' do
   index = params[:hash].hash % (settings.posts.size.zero? ? 50 : settings.posts.size)
   response = crop_image nearest_size_from_hash(@size.to_i, tumblr_fetch[index]), @size
+  if params[:format]
+    halt 403, "I don't understand that format" unless Rack::Mime.match? response.content_type, Rack::Mime.mime_type(params[:format].prepend("."))
+  end
 
   status response.status.first
   content_type response.content_type
