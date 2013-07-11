@@ -34,3 +34,5 @@ Thanks to:
 
 [Mark Wunsch](http://markwunsch.com/) wrote this glue code. Please use it responsibly.
 
+It might also be worthwhile to check out the [Flamboyant Mock User Generator](http://collegebowl.avatarpro.biz/).
+

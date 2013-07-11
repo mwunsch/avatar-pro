@@ -23,7 +23,7 @@ before do
 end
 
 get '/' do
-  markdown File.read(File.join(settings.root, 'README.md'))
+  markdown readme, layout_engine: :erb
 end
 
 get '/avatar.?:format?' do
@@ -125,4 +125,8 @@ def tumblr_url
   url.path = "/api/read"
   url.query = "type=photo&num=50"
   @url = url.normalize
+end
+
+def readme
+  File.read(File.join(settings.root, 'README.md'))
 end
