@@ -38,6 +38,7 @@ get '/avatar.?:format?' do
 end
 
 get '/avatar/:hash.?:format?' do
+  expires 3600, :public
   index = params[:hash].hash % (settings.posts.size.zero? ? 50 : settings.posts.size)
   response = crop_image nearest_size_from_hash(@size.to_i, tumblr_fetch[index]), @size
   if params[:format]
