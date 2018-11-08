@@ -7,10 +7,6 @@ require 'rexml/document'
 TUMBLR_HOST = "http://realbusinessmen.tumblr.com"
 IMAGE_CROPPER = "http://images.weserv.nl/"
 
-configure :production do
-  require 'newrelic_rpm'
-end
-
 configure do
   set :posts, []
   set :last_refresh, Time.now
