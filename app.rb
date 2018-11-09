@@ -95,7 +95,11 @@ def tumblr_fetch
 end
 
 def tumblr_elements_to_hash(*tumblr_posts)
-  tumblr_posts.map {|post| Hash[ post.map {|p| [p.attribute('max-width').value, p.text] if p.has_attributes? }.compact ] }
+  tumblr_posts.map do |post|
+    Hash[ post.lazy.select {|p| p['max-width'] }
+                   .map {|p| [p.attribute('max-width').value, p.text] }
+                   .force ]
+  end
 end
 
 def refresh
@@ -105,6 +109,7 @@ def refresh
   t2 = Time.now
   logger.info "Tumblr fetch completed in #{t2 - t1} seconds."
   posts = REXML::Document.new(response).elements["tumblr/posts"]
+  logger.info "Retrieved #{posts.length} posts"
   settings.posts |= tumblr_elements_to_hash(*posts.to_a)
   settings.last_refresh = Time.now
   settings.posts
