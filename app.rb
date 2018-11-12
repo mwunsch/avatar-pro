@@ -107,11 +107,10 @@ def refresh
   t1 = Time.now
   response = tumblr_url.open
   t2 = Time.now
-  logger.info "Tumblr fetch completed in #{t2 - t1} seconds."
   posts = REXML::Document.new(response).elements["tumblr/posts"]
-  logger.info "Retrieved #{posts.length} posts"
+  logger.info "Tumblr fetch completed in #{t2 - t1} seconds. Retrieved #{posts.length} posts."
   settings.posts |= tumblr_elements_to_hash(*posts.to_a)
-  settings.last_refresh = Time.now
+  settings.last_refresh = t2
   settings.posts
 end
 
