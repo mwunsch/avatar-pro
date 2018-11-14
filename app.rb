@@ -3,6 +3,7 @@ require 'open-uri'
 require 'cgi'
 require 'kramdown'
 require 'rexml/document'
+require 'mini_magick'
 
 TUMBLR_HOST = "http://realbusinessmen.tumblr.com"
 IMAGE_CROPPER = "http://images.weserv.nl/"
@@ -79,6 +80,10 @@ def crop_image(url, size)
     settings.crop_cache[h] = response if (200...300).include?(response.status.first.to_i)
     response
   end
+end
+
+def mini_magick_crop(url, size)
+  image = MiniMagick::Image.open(url)
 end
 
 def find_nearest_size(size_as_int)
