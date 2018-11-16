@@ -85,6 +85,7 @@ end
 def mini_magick_crop(url, size)
   image = MiniMagick::Image.open(url)
   image.crop = "#{size}x#{size}"
+  image.gravity = "North"
 end
 
 def find_nearest_size(size_as_int)
