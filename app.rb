@@ -82,6 +82,7 @@ def crop_image(url, size)
   end
 end
 
+# TODO: Finish sketching this out
 def mini_magick_crop(url, size)
   image = MiniMagick::Image.open(url)
   image.crop = "#{size}x#{size}"
